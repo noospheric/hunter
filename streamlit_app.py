@@ -1,7 +1,17 @@
+import base64
+from io import BytesIO
+
 import streamlit as st
 from streamlit.components.v1 import html as st_html
+from PIL import Image
 
-st.set_page_config(page_title="Outwize", page_icon="👤", layout="centered")
+with open("assets/icon.png", "rb") as icon_file:
+    icon_bytes = icon_file.read()
+
+page_icon = Image.open(BytesIO(icon_bytes)).resize((32, 32), Image.LANCZOS)
+brand_icon_data = base64.b64encode(icon_bytes).decode("utf-8")
+
+st.set_page_config(page_title="Outwize", page_icon=page_icon, layout="centered")
 
 # --- Styles ---
 st.markdown(
@@ -12,7 +22,8 @@ st.markdown(
 
     /* Brand */
     .outwize-brand { font-weight: 600; color: #0f172a; display: flex; align-items: center; gap: 10px; }
-    .outwize-icon { height: 28px; width: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; background: #ecebff; color: #4338ca; font-size: 16px; }
+    .outwize-icon { height: 28px; width: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; background: #ecebff; overflow: hidden; }
+    .outwize-icon img { height: 100%; width: 100%; object-fit: contain; }
 
     /* Headline + subtitle */
     h1.outwize-hero { font-size: 56px; line-height: 1.05; margin: 10px 0 8px; font-weight: 800; letter-spacing: -0.02em; }
@@ -38,10 +49,13 @@ st.markdown(
 )
 
 # --- Header ---
-st.markdown(
-    '<div class="outwize-brand"><span class="outwize-icon">👤</span><span>Outwize</span></div>',
-    unsafe_allow_html=True,
+header_html = (
+    f'<div class="outwize-brand"><span class="outwize-icon">'
+    f'<img src="data:image/png;base64,{brand_icon_data}" alt="Outwize logo" />'
+    f'</span><span>Outwize</span></div>'
 )
+
+st.markdown(header_html, unsafe_allow_html=True)
 
 # --- Hero ---
 st.markdown('<h1 class="outwize-hero">Recruit smarter agents.</h1>', unsafe_allow_html=True)
