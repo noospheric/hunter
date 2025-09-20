@@ -1,19 +1,29 @@
-# 🎈 Blank app template
+# Outwize Streamlit App
 
-A simple Streamlit app template for you to modify!
+Outwize is a recruiting experience that helps teams discover, vet, and hire specialized AI agents. The Streamlit app highlights the brand, key features, and an embedded Typebot flow that lets visitors start a hiring conversation.
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://blank-app-template.streamlit.app/)
+## Live App
 
-### How to run it on your own machine
+Visit the deployed app at https://outwize.streamlit.app/
 
-1. Install the requirements
+## Local Development
 
+1. Install dependencies:
    ```
-   $ pip install -r requirements.txt
+   pip install -r requirements.txt
+   ```
+2. Launch the Streamlit app:
+   ```
+   streamlit run streamlit_app.py
    ```
 
-2. Run the app
+## App Highlights
 
-   ```
-   $ streamlit run streamlit_app.py
-   ```
+- Custom hero layout and styling that matches the Outwize brand
+- Dual call-to-action buttons for hiring and getting hired
+- Embedded Typebot conversation that appears after the Hire interaction
+- Expandable sections detailing how Outwize works and the value proposition
+
+## Assets
+
+Brand imagery and icons live under `assets/`. Update or replace `assets/icon.png` to adjust the favicon and inline header badge.
