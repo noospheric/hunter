@@ -5,43 +5,53 @@ import streamlit as st
 from streamlit.components.v1 import html as st_html
 from PIL import Image
 
-with open("assets/icon.png", "rb") as icon_file:
-    icon_bytes = icon_file.read()
 
-page_icon = Image.open(BytesIO(icon_bytes)).resize((32, 32), Image.LANCZOS)
-brand_icon_data = base64.b64encode(icon_bytes).decode("utf-8")
+def load_icon_assets(icon_path: str) -> tuple[Image.Image, str]:
+    """Return a favicon-sized icon and a base64 string for inline usage."""
+
+    with Image.open(icon_path) as icon_source:
+        favicon = icon_source.resize((32, 32), Image.LANCZOS)
+        header_icon = icon_source.resize((56, 56), Image.LANCZOS)
+
+    buffer = BytesIO()
+    header_icon.save(buffer, format="PNG")
+    icon_b64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
+    return favicon, icon_b64
+
+
+page_icon, brand_icon_data = load_icon_assets("assets/icon.png")
 
 st.set_page_config(page_title="Outwize", page_icon=page_icon, layout="centered")
 
-# --- Styles ---
 st.markdown(
     """
     <style>
-    /* Center content and adjust max width */
     .main .block-container { max-width: 820px; padding-top: 2rem; padding-bottom: 3rem; }
 
-    /* Brand */
     .outwize-brand { font-weight: 600; color: #0f172a; display: flex; align-items: center; gap: 10px; }
-    .outwize-icon { height: 28px; width: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; background: #ecebff; overflow: hidden; }
-    .outwize-icon img { height: 100%; width: 100%; object-fit: contain; }
+    .outwize-icon {
+      height: 48px; width: 48px; display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 9999px; box-shadow: 0 6px 18px rgba(79, 70, 229, 0.15);
+    }
+    .outwize-icon img {
+      height: 100%; width: 100%; display: block; border-radius: 50%; object-fit: cover;
+    }
+    .outwize-name { font-size: 20px; }
 
-    /* Headline + subtitle */
-    h1.outwize-hero { font-size: 56px; line-height: 1.05; margin: 10px 0 8px; font-weight: 800; letter-spacing: -0.02em; }
-    p.outwize-sub { font-size: 22px; color: #334155; margin-bottom: 24px; }
-    p.outwize-sub .highlight { color: #b91c1c; font-weight: 700; }
+    h1 { font-size: 56px !important; line-height: 1.05; margin: 0 0 8px !important; font-weight: 800 !important; letter-spacing: -0.02em; color: #0f172a; }
+    .outwize-sub { font-size: 22px; color: #334155; margin-bottom: 28px; }
+    .outwize-sub .highlight { color: #b91c1c; font-weight: 700; }
 
-    /* Buttons */
     .stButton>button {
       width: 100%; padding: 14px 18px; border-radius: 12px; border: 1px solid #3f3cf6;
-      background: #3f3cf6; color: white; text-transform: uppercase; letter-spacing: 0.6px;
-      font-weight: 800; font-size: 18px;
-      box-shadow: 0 2px 0 rgba(0,0,0,0.08), 0 8px 24px rgba(63,60,246,0.28);
+      background: linear-gradient(135deg, #3f3cf6, #473bfd); color: white; text-transform: uppercase;
+      letter-spacing: 0.6px; font-weight: 800; font-size: 18px;
+      box-shadow: 0 2px 0 rgba(0,0,0,0.08), 0 12px 30px rgba(63,60,246,0.3);
     }
-    .stButton>button:hover { filter: brightness(1.02); }
+    .stButton>button:hover { filter: brightness(1.05); }
 
-    /* Expanders */
-    div.streamlit-expanderHeader { font-size: 20px; font-weight: 700; }
-    div.streamlit-expander { border: 1px solid #e2e8f0; border-radius: 14px; }
+    div.streamlit-expanderHeader { font-size: 20px; font-weight: 700; color: #1e293b; }
+    div.streamlit-expander { border: 1px solid #e2e8f0; border-radius: 14px; box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06); }
     div.streamlit-expander + div.streamlit-expander { margin-top: 14px; }
     </style>
     """,
@@ -49,16 +59,20 @@ st.markdown(
 )
 
 # --- Header ---
-header_html = (
-    f'<div class="outwize-brand"><span class="outwize-icon">'
-    f'<img src="data:image/png;base64,{brand_icon_data}" alt="Outwize logo" />'
-    f'</span><span>Outwize</span></div>'
+st.markdown(
+    f"""
+    <div class="outwize-brand">
+        <span class="outwize-icon"><img src="data:image/png;base64,{brand_icon_data}" alt="Outwize logo" /></span>
+        <span class="outwize-name">Outwize</span>
+    </div>
+    """,
+    unsafe_allow_html=True,
 )
 
-st.markdown(header_html, unsafe_allow_html=True)
+st.write("")
 
 # --- Hero ---
-st.markdown('<h1 class="outwize-hero">Recruit smarter agents.</h1>', unsafe_allow_html=True)
+st.title("Recruit smarter agents.")
 st.markdown(
     """
     <p class="outwize-sub">Outwize is the <span class="highlight">world's first</span> headhunter for AI agents.</p>
@@ -89,15 +103,26 @@ if st.session_state.get("show_hire"):
     )
 
 # --- Information sections ---
-st.write("")
+st.divider()
 with st.expander("How it works"):
-    st.write("• Tell us what you need. • We shortlist agent options. • You hire with confidence.")
+    st.markdown(
+        "- Tell us what you need.\n"
+        "- We shortlist agent options.\n"
+        "- You hire with confidence."
+    )
 
 with st.expander("Why Outwize"):
     st.write("We benchmark, vet, and match specialized AI agents for real business outcomes.")
 
 with st.expander("Popular agent roles"):
-    st.write("• Sales and SDR • RevOps • Marketing Ops • Support and CX • Data automation • Custom internal tools")
+    st.markdown(
+        "- Sales and SDR\n"
+        "- RevOps\n"
+        "- Marketing Ops\n"
+        "- Support and CX\n"
+        "- Data automation\n"
+        "- Custom internal tools"
+    )
 
 with st.expander("Contact"):
     st.write("Coming soon")
