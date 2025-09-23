@@ -17,6 +17,29 @@ Visit the deployed app at https://outwize.streamlit.app/
    streamlit run streamlit_app.py
    ```
 
+## Deploy to Google Cloud Run
+
+1. Build and push the container image with Cloud Build:
+   ```bash
+   gcloud builds submit --tag gcr.io/YOUR_PROJECT_ID/outwize-streamlit
+   ```
+2. Deploy the service to Cloud Run (replace the project id if needed):
+   ```bash
+   gcloud run deploy outwize-streamlit \
+       --image gcr.io/YOUR_PROJECT_ID/outwize-streamlit \
+       --region europe-west1 \
+       --platform managed \
+       --allow-unauthenticated
+   ```
+3. Fetch the service URL once deployment finishes:
+   ```bash
+   gcloud run services describe outwize-streamlit \
+       --region europe-west1 \
+       --format='value(status.url)'
+   ```
+
+Environment configuration (for example API keys) can be sourced from Secret Manager and exposed as environment variables via `--update-secrets`.
+
 ## App Highlights
 
 - Custom hero layout and styling that matches the Outwize brand
