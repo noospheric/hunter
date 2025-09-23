@@ -108,24 +108,50 @@ if st.session_state.get("show_hire"):
 # --- Information sections ---
 st.divider()
 with st.expander("How it works"):
-    st.markdown(
-        "- Tell us what you need.\n"
-        "- We shortlist agent options.\n"
-        "- You hire with confidence."
+    st.markdown("""
+        We start with your intent - are you hiring an agent or offering one?
+        
+        Then we dig into your use case and stack - fast.
+                
+        Behind the scenes, we evaluate tech fit, vendor credibility, and real value for your org.
+                
+        No buzzwords, no vendor bias - just a clear path to the right agent.
+        """
     )
 
 with st.expander("Why Outwize"):
-    st.write("We benchmark, vet, and match specialized AI agents for real business outcomes.")
+    st.markdown("""
+        The AI agent market moves fast - too fast to evaluate a new vendor every week.
+                
+        Choosing one is like hiring an employee: you don’t want to onboard only to find out they’re a poor fit.  
+                
+        We help you get it right - matching for skills, stack fit, ROI, and long-term value.   
+                
+        No vendor bias. No shiny slides. You stay in control - we just help you ask the right questions and make the smart calls.     
+                
+        You don’t need to become an AI expert to benefit from the agentic revolution.     
+                
+        And no - it’s not “just a chat.” Behind every flow is real human expertise with decades of startup, academic, and industry experience.
+        """
+    )
 
 with st.expander("Popular agent roles"):
-    st.markdown(
-        "- Sales and SDR\n"
-        "- RevOps\n"
-        "- Marketing Ops\n"
-        "- Support and CX\n"
-        "- Data automation\n"
-        "- Custom internal tools"
+    st.markdown("""
+        To start strong, we’re focusing on two of the most in-demand areas:
+        - Cybersecurity - from compliance policy assistants to CVE analyzers and phishing simulators.
+        - Accounting & Finance - invoice matchers, budget summarizers, and procurement copilots.
+                
+        These domains combine automation potential with real business risk - and AI agents can move the needle fast.
+                
+        Our catalog is growing every week. If your use case is outside these lanes, tell us - we’ll expand.
+        """
     )
 
 with st.expander("Contact"):
-    st.write("Coming soon")
+    st.markdown("""
+        Want to talk to a real human before all this gets automated?
+                
+        Reach out:  
+        hello@outwize.ai
+        """
+    )
