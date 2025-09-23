@@ -1,0 +1,30 @@
+substitutions:
+  _SERVICE: outwize-streamlit
+  _REGION: europe-west1
+  _IMAGE: gcr.io/$PROJECT_ID/outwize-streamlit
+
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - '--tag'
+      - ${_IMAGE}
+      - .
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - ${_IMAGE}
+  - name: gcr.io/cloud-builders/gcloud
+    args:
+      - run
+      - deploy
+      - ${_SERVICE}
+      - '--image'
+      - ${_IMAGE}
+      - '--region'
+      - ${_REGION}
+      - '--platform'
+      - managed
+      - '--allow-unauthenticated'
+images:
+  - ${_IMAGE}

@@ -1,0 +1,6 @@
+gcloud builds submit --tag gcr.io/project-hunter-472810/outwize-streamlit
+gcloud run deploy outwize-streamlit \
+    --image gcr.io/project-hunter-472810/outwize-streamlit \
+    --region europe-west1 \
+    --platform managed \
+    --allow-unauthenticated

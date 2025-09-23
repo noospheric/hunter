@@ -40,6 +40,15 @@ Visit the deployed app at https://outwize.streamlit.app/
 
 Environment configuration (for example API keys) can be sourced from Secret Manager and exposed as environment variables via `--update-secrets`.
 
+### Automate deployments with Cloud Build
+
+Create a trigger that watches your main branch and points to the provided `cloudbuild.yaml`. The build will:
+
+- Build and push `gcr.io/$PROJECT_ID/outwize-streamlit` using the repo’s `Dockerfile`.
+- Deploy the new image to Cloud Run in `europe-west1` as the `outwize-streamlit` service.
+
+You can adjust `_SERVICE`, `_REGION`, or `_IMAGE` substitutions directly in the trigger configuration to match other environments.
+
 ## App Highlights
 
 - Custom hero layout and styling that matches the Outwize brand
