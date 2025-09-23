@@ -1,6 +1,6 @@
 # Outwize Streamlit App
 
-Outwize is a recruiting experience that helps teams discover, vet, and hire specialized AI agents. The Streamlit app highlights the brand, key features, and an embedded Typebot flow that lets visitors start a hiring conversation.
+Outwize is a recruiting experience that helps teams discover, vet, and hire specialized AI agents. The Streamlit app highlights the brand, key features, and an embedded Typebot flow that lets visitors start a hiring conversation.s
 
 ## Live App
 
