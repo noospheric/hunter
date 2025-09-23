@@ -28,3 +28,5 @@ steps:
       - '--allow-unauthenticated'
 images:
   - ${_IMAGE}
+options:
+  logging: NONE   # or CLOUD_LOGGING_ONLY
