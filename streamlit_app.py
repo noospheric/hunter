@@ -28,6 +28,9 @@ st.markdown(
     <style>
     .main .block-container { max-width: 820px; padding-top: 2rem; padding-bottom: 3rem; }
 
+    div[data-testid="stToolbar"] { display: none !important; }
+    div[data-testid="collapsedControl"] { display: none !important; }
+
     .outwize-brand { font-weight: 600; color: #0f172a; display: flex; align-items: center; gap: 10px; }
     .outwize-icon {
       height: 48px; width: 48px; display: inline-flex; align-items: center; justify-content: center;
