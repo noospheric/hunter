@@ -88,10 +88,21 @@ col1, col2 = st.columns(2, gap="large")
 with col1:
     hire_clicked = st.button("HIRE", use_container_width=True, key="hire_button")
 with col2:
-    st.button("GET HIRED", use_container_width=True, key="get_hired_button")
+    get_hired_clicked = st.button("GET HIRED", use_container_width=True, key="get_hired_button")
+
+if "show_hire" not in st.session_state:
+    st.session_state["show_hire"] = False
+
+if "show_get_hired" not in st.session_state:
+    st.session_state["show_get_hired"] = False
 
 if hire_clicked:
     st.session_state["show_hire"] = True
+    st.session_state["show_get_hired"] = False
+
+if get_hired_clicked:
+    st.session_state["show_get_hired"] = True
+    st.session_state["show_hire"] = False
 
 if st.session_state.get("show_hire"):
     st_html(
@@ -99,6 +110,17 @@ if st.session_state.get("show_hire"):
         <script type="module">
           import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0/dist/web.js';
           Typebot.initStandard({ typebot: "outwize" });
+        </script>
+        <typebot-standard style="width: 100%; height: 600px;"></typebot-standard>
+        """,
+        height=620,
+    )
+elif st.session_state.get("show_get_hired"):
+    st_html(
+        """
+        <script type="module">
+          import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0/dist/web.js';
+          Typebot.initStandard({ typebot: "outwize-get-hired-2qrpe85" });
         </script>
         <typebot-standard style="width: 100%; height: 600px;"></typebot-standard>
         """,
