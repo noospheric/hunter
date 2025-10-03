@@ -21,7 +21,64 @@ def load_icon_assets(icon_path: str) -> tuple[Image.Image, str]:
 
 page_icon, brand_icon_data = load_icon_assets("assets/icon.png")
 
-st.set_page_config(page_title="Outwize", page_icon=page_icon, layout="centered")
+st.set_page_config(
+    page_title="Outwize | AI Agent Headhunters",
+    page_icon=page_icon,
+    layout="centered",
+)
+
+st_html(
+    """
+    <script>
+      document.title = "Outwize | AI Agent Headhunters";
+      const metaTags = [
+        ["name", "description", "Outwize helps teams hire production-ready AI agents fast and safely."],
+        ["name", "keywords", "AI agents, headhunter, automation, Outwize"],
+        ["property", "og:title", "Outwize | AI Agent Headhunters"],
+        ["property", "og:description", "Match with vetted AI agents for cybersecurity, finance, and more."],
+        ["property", "og:url", "https://outwize.ai"],
+        ["property", "og:type", "website"]
+      ];
+      metaTags.forEach(([attr, name, content]) => {
+        if (!document.head.querySelector(`[${attr}="${name}"]`)) {
+          const tag = document.createElement("meta");
+          tag.setAttribute(attr, name);
+          tag.setAttribute("content", content);
+          document.head.appendChild(tag);
+        }
+      });
+      const ld = {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Outwize",
+        "url": "https://outwize.ai",
+        "description": "Outwize is the world's first headhunter for AI agents.",
+        "sameAs": ["https://www.linkedin.com/company/outwize"]
+      };
+      if (!document.head.querySelector('script[type="application/ld+json"]')) {
+        const ldScript = document.createElement("script");
+        ldScript.type = "application/ld+json";
+        ldScript.text = JSON.stringify(ld);
+        document.head.appendChild(ldScript);
+      }
+    </script>
+    """,
+    height=0,
+)
+
+st.markdown(
+    """
+    <noscript>
+      <style>main { display: none !important; }</style>
+      <article>
+        <h1>Outwize | AI Agent Headhunters</h1>
+        <p>Outwize brings you production-ready AI agents for cybersecurity, finance, and more—without vendor noise.</p>
+        <p>Email hello@outwize.ai to start matching.</p>
+      </article>
+    </noscript>
+    """,
+    unsafe_allow_html=True,
+)
 
 st.markdown(
     """
